@@ -5,49 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>คู่มือเลือกสถานดูแลผู้สูงอายุ</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
             margin: 0;
-            background: #121212;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            overflow: hidden;
             font-family: sans-serif;
         }
+        /* กล่องหลักสำหรับเลื่อนซ้าย-ขวา */
         .book-container {
-            width: 100%;
-            max-width: 800px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        img {
             width: 100%;
-            height: auto;
-            display: block;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+            height: 100vh;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* แต่ละหน้ากระดาษ */
+        .page {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #1a1a1a;
+        }
+        /* ตกแต่งรูปภาพและเงา */
+        .page img {
+            max-width: 95%;
+            max-height: 92vh;
+            object-fit: contain;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
             border-radius: 4px;
         }
-        .header-title {
+        /* แถบควบคุมด้านล่าง (ปุ่มกด และตัวบอกหน้า) */
+        .nav-bar {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             color: #fff;
-            margin-bottom: 20px;
-            font-size: 20px;
-            text-align: center;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .nav-btn {
+            background: #ffffff22;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .nav-btn:hover {
+            background: #ffffff44;
+        }
+        #page-indicator {
+            font-size: 14px;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
 
-    <h1 class="header-title">คู่มือเลือกสถานดูแลผู้สูงอายุ</h1>
-
-    <div class="book-container">
-        <img src="1.png" alt="หน้า 1">
-        <img src="2.png" alt="หน้า 2">
-        <img src="3.png" alt="หน้า 3">
-        <img src="4.png" alt="หน้า 4">
-        <img src="5.png" alt="หน้า 5">
+    <!-- ส่วนแสดงภาพแนวนอน -->
+    <div class="book-container" id="book">
+        <div class="page"><img src="1.png" alt="หน้า 1"></div>
+        <div class="page"><img src="2.png" alt="หน้า 2"></div>
+        <div class="page"><img src="3.png" alt="หน้า 3"></div>
+        <div class="page"><img src="4.png" alt="หน้า 4"></div>
+        <div class="page"><img src="5.png" alt="หน้า 5"></div>
     </div>
 
+    <!-- แถบควบคุมด้านล่าง -->
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="prevPage()">◀ ย้อนกลับ</button>
+        <span id="page-indicator">หน้า 1 / 5</span>
+        <button class="nav-btn" onclick="nextPage()">ถัดไป ▶</button>
+    </div>
+
+    <script>
+        const book = document.getElementById('book');
+        const indicator = document.getElementById('page-indicator');
+        const totalPages = 5;
+
+        function getCurrentPage() {
+            return Math.round(book.scrollLeft / book.clientWidth) + 1;
+        }
+
+        function updateIndicator() {
+            const pageNum = getCurrentPage();
+            indicator.innerText = `หน้า ${pageNum} / ${totalPages}`;
+        }
+
+        function nextPage() {
+            let currentPage = getCurrentPage();
+            if (currentPage < totalPages) {
+                book.scrollBy({ left: book.clientWidth, behavior: 'smooth' });
+            }
+        }
+
+        function prevPage() {
+            let currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                book.scrollBy({ left: -book.clientWidth, behavior: 'smooth' });
+            }
+        }
+
+        book.addEventListener('scroll', () => {
+            updateIndicator();
+        });
+    </script>
 </body>
 </html>
