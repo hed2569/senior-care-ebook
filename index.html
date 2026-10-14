@@ -7,96 +7,47 @@
     <style>
         body {
             margin: 0;
-            background: #111;
+            background: #121212;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            padding: 20px 0;
             font-family: sans-serif;
         }
-        .container {
+        .book-container {
             width: 100%;
-            height: 85vh;
+            max-width: 800px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 15px;
         }
         img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            display: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
             border-radius: 4px;
         }
-        img.active {
-            display: block;
-        }
-        .nav {
-            margin-top: 15px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            color: white;
-        }
-        button {
-            padding: 8px 18px;
-            background: #4a90e2;
-            border: none;
-            color: white;
-            font-size: 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background: #357abd;
-        }
-        #counter {
-            font-size: 16px;
-            letter-spacing: 1px;
+        .header-title {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="1.png" class="active" alt="หน้า 1">
+    <h1 class="header-title">คู่มือเลือกสถานดูแลผู้สูงอายุ</h1>
+
+    <div class="book-container">
+        <img src="1.png" alt="หน้า 1">
         <img src="2.png" alt="หน้า 2">
         <img src="3.png" alt="หน้า 3">
         <img src="4.png" alt="หน้า 4">
         <img src="5.png" alt="หน้า 5">
     </div>
-
-    <div class="nav">
-        <button onclick="prevImage()">◀ หน้าก่อนหน้า</button>
-        <span id="counter">หน้า 1 / 5</span>
-        <button onclick="nextImage()">หน้าถัดไป ▶</button>
-    </div>
-
-    <script>
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.container img');
-        const counter = document.getElementById('counter');
-
-        function showImage(index) {
-            images.forEach(img => img.classList.remove('active'));
-            images[index].classList.add('active');
-            counter.innerText = `หน้า ${index + 1} / ${images.length}`;
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
-        }
-    </script>
 
 </body>
 </html>
