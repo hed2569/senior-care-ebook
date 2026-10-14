@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>คู่มือเลือกสถานดูแลผู้สูงอายุ</title>
     
-    <!-- ตั้งค่าสำหรับแชร์ลิงก์ใน Line / Facebook -->
+    <!-- ตั้งค่าสำหรับแชร์ลิงก์ใน Line / Facebook (แสดงชื่อและภาพปกหน้า 1) -->
     <meta property="og:title" content="คู่มือเลือกสถานดูแลผู้สูงอายุ">
-    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่ออ่านอีบุ๊ก หรือกดดาวน์โหลดฉบับเต็มได้ที่นี่ ➔">
+    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่อเปลี่ยนหน้าอ่านคู่มือ ➔">
     <meta property="og:image" content="https://hed2569.github.io/senior-care-ebook/1.png">
     <meta property="og:type" content="website">
 
@@ -46,50 +46,40 @@
         }
         .page img {
             max-width: 95%;
-            max-height: 90vh;
+            max-height: 92vh;
             object-fit: contain;
             box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
             border-radius: 4px;
         }
-        /* แถบควบคุมด้านล่าง */
+        /* แถบควบคุมด้านล่าง (มีเฉพาะปุ่มเปลี่ยนหน้าและตัวเลขบอกหน้า) */
         .nav-bar {
             position: fixed;
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             color: #fff;
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: 30px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             z-index: 10;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
-        .nav-btn, .download-btn {
+        .nav-btn {
             background: #ffffff22;
             border: none;
             color: white;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             transition: background 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
         }
         .nav-btn:hover {
             background: #ffffff44;
-        }
-        .download-btn {
-            background: #27ae60;
-            font-weight: bold;
-        }
-        .download-btn:hover {
-            background: #219653;
         }
         #page-indicator {
             font-size: 14px;
@@ -100,6 +90,7 @@
 </head>
 <body>
 
+    <!-- ส่วนแสดงภาพแนวนอน -->
     <div class="book-container" id="book">
         <div class="page"><img src="1.png" alt="หน้า 1"></div>
         <div class="page"><img src="2.png" alt="หน้า 2"></div>
@@ -108,12 +99,11 @@
         <div class="page"><img src="5.png" alt="หน้า 5"></div>
     </div>
 
+    <!-- แถบควบคุมด้านล่าง -->
     <div class="nav-bar">
-        <button class="nav-btn" onclick="prevPage()">◀ ย้อน</button>
+        <button class="nav-btn" onclick="prevPage()">◀ ย้อนกลับ</button>
         <span id="page-indicator">หน้า 1 / 5</span>
         <button class="nav-btn" onclick="nextPage()">ถัดไป ▶</button>
-        <!-- ปุ่มดาวน์โหลดไฟล์ PDF ฉบับเต็ม -->
-        <a href="senior-care-manual.pdf" download class="download-btn" target="_blank">📥 โหลด PDF ทั้งเล่ม</a>
     </div>
 
     <script>
@@ -125,7 +115,7 @@
             return Math.round(book.scrollLeft / book.clientWidth) + 1;
         }
 
-        function updateUI() {
+        function updateIndicator() {
             const pageNum = getCurrentPage();
             indicator.innerText = `หน้า ${pageNum} / ${totalPages}`;
         }
@@ -145,7 +135,7 @@
         }
 
         book.addEventListener('scroll', () => {
-            updateUI();
+            updateIndicator();
         });
     </script>
 </body>
