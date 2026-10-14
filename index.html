@@ -7,7 +7,7 @@
     
     <!-- ตั้งค่าสำหรับแชร์ลิงก์ใน Line / Facebook -->
     <meta property="og:title" content="คู่มือเลือกสถานดูแลผู้สูงอายุ">
-    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่อเปลี่ยนหน้า หรือกดดาวน์โหลดคู่มือได้ที่นี่ ➔">
+    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่ออ่านอีบุ๊ก หรือกดดาวน์โหลดฉบับเต็มได้ที่นี่ ➔">
     <meta property="og:image" content="https://hed2569.github.io/senior-care-ebook/1.png">
     <meta property="og:type" content="website">
 
@@ -46,7 +46,7 @@
         }
         .page img {
             max-width: 95%;
-            max-height: 92vh;
+            max-height: 90vh;
             object-fit: contain;
             box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
             border-radius: 4px;
@@ -60,7 +60,7 @@
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(5px);
             color: #fff;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 30px;
             display: flex;
             align-items: center;
@@ -77,14 +77,16 @@
             cursor: pointer;
             font-size: 13px;
             transition: background 0.2s;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
         }
-        .nav-btn:hover, .download-btn:hover {
+        .nav-btn:hover {
             background: #ffffff44;
         }
         .download-btn {
             background: #27ae60;
+            font-weight: bold;
         }
         .download-btn:hover {
             background: #219653;
@@ -110,15 +112,14 @@
         <button class="nav-btn" onclick="prevPage()">◀ ย้อน</button>
         <span id="page-indicator">หน้า 1 / 5</span>
         <button class="nav-btn" onclick="nextPage()">ถัดไป ▶</button>
-        <!-- ปุ่มดาวน์โหลดแบบสั่งตรงผ่านโค้ด -->
-        <button class="download-btn" onclick="downloadCurrentPage()">📥 โหลดหน้านี้</button>
+        <!-- ปุ่มดาวน์โหลดไฟล์ PDF ฉบับเต็ม -->
+        <a href="senior-care-manual.pdf" download class="download-btn" target="_blank">📥 โหลด PDF ทั้งเล่ม</a>
     </div>
 
     <script>
         const book = document.getElementById('book');
         const indicator = document.getElementById('page-indicator');
         const totalPages = 5;
-        const imageFiles = ['1.png', '2.png', '3.png', '4.png', '5.png'];
 
         function getCurrentPage() {
             return Math.round(book.scrollLeft / book.clientWidth) + 1;
@@ -141,20 +142,6 @@
             if (currentPage > 1) {
                 book.scrollBy({ left: -book.clientWidth, behavior: 'smooth' });
             }
-        }
-
-        // ฟังก์ชันบังคับดาวน์โหลดรูปภาพหน้าปัจจุบัน
-        function downloadCurrentPage() {
-            const pageNum = getCurrentPage();
-            const fileName = imageFiles[pageNum - 1];
-            
-            // สร้างลิงก์จำลองเพื่อดาวน์โหลดไฟล์ลงเครื่อง
-            const a = document.createElement('a');
-            a.href = fileName;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
         }
 
         book.addEventListener('scroll', () => {
