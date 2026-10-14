@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>คู่มือเลือกสถานดูแลผู้สูงอายุ</title>
+    
+    <!-- ตั้งค่าสำหรับเวลาแชร์ลิงก์ไปใน Line / Facebook -->
+    <meta property="og:title" content="คู่มือเลือกสถานดูแลผู้สูงอายุ">
+    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่อเปลี่ยนหน้า ➔">
+    <meta property="og:type" content="website">
+
     <style>
         * {
             box-sizing: border-box;
@@ -17,7 +23,6 @@
             overflow: hidden;
             font-family: sans-serif;
         }
-        /* กล่องหลักสำหรับเลื่อนซ้าย-ขวา */
         .book-container {
             display: flex;
             width: 100%;
@@ -27,7 +32,6 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        /* แต่ละหน้ากระดาษ */
         .page {
             flex: 0 0 100%;
             width: 100%;
@@ -39,7 +43,6 @@
             position: relative;
             background: #1a1a1a;
         }
-        /* ตกแต่งรูปภาพและเงา */
         .page img {
             max-width: 95%;
             max-height: 92vh;
@@ -47,7 +50,6 @@
             box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
             border-radius: 4px;
         }
-        /* แถบควบคุมด้านล่าง (ปุ่มกด และตัวบอกหน้า) */
         .nav-bar {
             position: fixed;
             bottom: 15px;
@@ -86,7 +88,6 @@
 </head>
 <body>
 
-    <!-- ส่วนแสดงภาพแนวนอน -->
     <div class="book-container" id="book">
         <div class="page"><img src="1.png" alt="หน้า 1"></div>
         <div class="page"><img src="2.png" alt="หน้า 2"></div>
@@ -95,7 +96,6 @@
         <div class="page"><img src="5.png" alt="หน้า 5"></div>
     </div>
 
-    <!-- แถบควบคุมด้านล่าง -->
     <div class="nav-bar">
         <button class="nav-btn" onclick="prevPage()">◀ ย้อนกลับ</button>
         <span id="page-indicator">หน้า 1 / 5</span>
