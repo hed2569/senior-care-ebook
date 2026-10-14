@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>คู่มือเลือกสถานดูแลผู้สูงอายุ</title>
     
-    <!-- ตั้งค่าสำหรับเวลาแชร์ลิงก์ไปใน Line / Facebook -->
+    <!-- ตั้งค่าสำหรับแชร์ลิงก์ใน Line / Facebook -->
     <meta property="og:title" content="คู่มือเลือกสถานดูแลผู้สูงอายุ">
-    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่อเปลี่ยนหน้า ➔">
+    <meta property="og:description" content="ปัดซ้าย-ขวาเพื่อเปลี่ยนหน้า หรือกดดาวน์โหลดคู่มือได้ที่นี่ ➔">
+    <meta property="og:image" content="https://hed2569.github.io/senior-care-ebook/1.png">
     <meta property="og:type" content="website">
 
     <style>
@@ -50,34 +51,43 @@
             box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
             border-radius: 4px;
         }
+        /* แถบควบคุมด้านล่าง */
         .nav-bar {
             position: fixed;
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(5px);
             color: #fff;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             z-index: 10;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
-        .nav-btn {
+        .nav-btn, .download-btn {
             background: #ffffff22;
             border: none;
             color: white;
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
         }
-        .nav-btn:hover {
+        .nav-btn:hover, .download-btn:hover {
             background: #ffffff44;
+        }
+        .download-btn {
+            background: #27ae60;
+        }
+        .download-btn:hover {
+            background: #219653;
         }
         #page-indicator {
             font-size: 14px;
@@ -97,21 +107,24 @@
     </div>
 
     <div class="nav-bar">
-        <button class="nav-btn" onclick="prevPage()">◀ ย้อนกลับ</button>
+        <button class="nav-btn" onclick="prevPage()">◀ ย้อน</button>
         <span id="page-indicator">หน้า 1 / 5</span>
         <button class="nav-btn" onclick="nextPage()">ถัดไป ▶</button>
+        <!-- ปุ่มดาวน์โหลดแบบสั่งตรงผ่านโค้ด -->
+        <button class="download-btn" onclick="downloadCurrentPage()">📥 โหลดหน้านี้</button>
     </div>
 
     <script>
         const book = document.getElementById('book');
         const indicator = document.getElementById('page-indicator');
         const totalPages = 5;
+        const imageFiles = ['1.png', '2.png', '3.png', '4.png', '5.png'];
 
         function getCurrentPage() {
             return Math.round(book.scrollLeft / book.clientWidth) + 1;
         }
 
-        function updateIndicator() {
+        function updateUI() {
             const pageNum = getCurrentPage();
             indicator.innerText = `หน้า ${pageNum} / ${totalPages}`;
         }
@@ -130,8 +143,22 @@
             }
         }
 
+        // ฟังก์ชันบังคับดาวน์โหลดรูปภาพหน้าปัจจุบัน
+        function downloadCurrentPage() {
+            const pageNum = getCurrentPage();
+            const fileName = imageFiles[pageNum - 1];
+            
+            // สร้างลิงก์จำลองเพื่อดาวน์โหลดไฟล์ลงเครื่อง
+            const a = document.createElement('a');
+            a.href = fileName;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
         book.addEventListener('scroll', () => {
-            updateIndicator();
+            updateUI();
         });
     </script>
 </body>
