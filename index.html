@@ -1,141 +1,134 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>8 คำถามสำคัญ ก่อนเลือกสถานดูแลผู้สูงอายุ</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    overflow:hidden;
-    background:#f5f5f5;
-    font-family:sans-serif;
-}
-
-.slider{
-    display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scroll-behavior:smooth;
-    width:100vw;
-    height:100vh;
-}
-
-.slider::-webkit-scrollbar{
-    display:none;
-}
-
-.slide{
-    min-width:100vw;
-    height:100vh;
-    scroll-snap-align:start;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.slide img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.page-number{
-    position:fixed;
-    top:15px;
-    right:15px;
-    background:rgba(0,0,0,.7);
-    color:white;
-    padding:8px 14px;
-    border-radius:20px;
-    z-index:999;
-}
-
-.dots{
-    position:fixed;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:8px;
-    z-index:999;
-}
-
-.dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#ccc;
-}
-
-.dot.active{
-    background:#0d6efd;
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คู่มือเลือกสถานดูแลผู้สูงอายุ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        .book-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .page {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #1a1a1a;
+        }
+        /* เพิ่มลูกเล่นเงาจำลองสันหนังสือและขอบกระดาษ */
+        .page img {
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.7);
+            border-radius: 4px;
+        }
+        /* แถบควบคุมด้านล่าง */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .nav-btn {
+            background: #ffffff22;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .nav-btn:hover {
+            background: #ffffff44;
+        }
+        #page-indicator {
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="page-number">
-    <span id="current">1</span>/5
-</div>
-
-<div class="slider" id="slider">
-
-    <div class="slide">
-        <mages/1.png
+    <div class="book-container" id="book">
+        <div class="page"><img src="01.png" alt="หน้า 1"></div>
+        <div class="page"><img src="02.png" alt="หน้า 2"></div>
+        <div class="page"><img src="03.png" alt="หน้า 3"></div>
+        <div class="page"><img src="04.png" alt="หน้า 4"></div>
+        <div class="page"><img src="05.png" alt="หน้า 5"></div>
     </div>
 
-    <div class="slide">
-        images/2.png
+    <!-- ปุ่มควบคุมและบอกหน้า -->
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="prevPage()">◀ ย้อนกลับ</button>
+        <span id="page-indicator">หน้า 1 / 5</span>
+        <button class="nav-btn" onclick="nextPage()">ถัดไป ▶</button>
     </div>
 
-    <div class="slide">
-        <img src="ng
-    </div>
+    <script>
+        const book = document.getElementById('book');
+        const indicator = document.getElementById('page-indicator');
+        const totalPages = 5;
 
-    <div class="slide">
-        <img src="images/4.png"
+        function getCurrentPage() {
+            return Math.round(book.scrollLeft / book.clientWidth) + 1;
+        }
 
-    <div class="slide">
-        <img src="images/5.png" 
-</div>
+        function updateIndicator() {
+            const pageNum = getCurrentPage();
+            indicator.innerText = `หน้า ${pageNum} / ${totalPages}`;
+        }
 
-<div class="dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-</div>
+        function nextPage() {
+            let currentPage = getCurrentPage();
+            if (currentPage < totalPages) {
+                book.scrollBy({ left: book.clientWidth, behavior: 'smooth' });
+            }
+        }
 
-<script>
-const slider = document.getElementById('slider');
-const dots = document.querySelectorAll('.dot');
-const current = document.getElementById('current');
+        function prevPage() {
+            let currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                book.scrollBy({ left: -book.clientWidth, behavior: 'smooth' });
+            }
+        }
 
-slider.addEventListener('scroll', () => {
-
-    const index = Math.round(
-        slider.scrollLeft / window.innerWidth
-    );
-
-    current.textContent = index + 1;
-
-    dots.forEach(dot => dot.classList.remove('active'));
-
-    if(dots[index]){
-        dots[index].classList.add('active');
-    }
-});
-</script>
-
+        book.addEventListener('scroll', () => {
+            updateIndicator();
+        });
+    </script>
 </body>
 </html>
